@@ -8,13 +8,12 @@ class Hero:
     ''' Current Hero will take turns fighting the opponent hero passed in.
   '''
     def fight(self, opponent):
-        self.opponent = opponent
-        list = [self.opponent, self.name]
+        list = [opponent.name, self.name]
         winner = random.choice(list)
-        if winner == self.opponent:
+        if winner == opponent.name:
             print(f"{winner} defeats {self.name}!")
         else:
-            print(f"{winner} defeats {self.opponent}!")
+            print(f"{winner} defeats {opponent.name}!")
 
 # If we put the code inside the if __name__ == "__main__": block. This block will only run if this script is called directly. 
 # The if/code block here prevents this block from being run when this script is imported by another script.
@@ -22,4 +21,4 @@ class Hero:
 if __name__ == "__main__":
     hero1 = Hero("Wonder Woman")
     hero2 = Hero("Dumbledore")
-    hero1.fight(hero2.name)
+    hero1.fight(hero2)
