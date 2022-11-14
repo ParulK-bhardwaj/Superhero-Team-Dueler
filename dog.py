@@ -12,3 +12,11 @@ class Dog:
     
     def roll_over(self):
         print(f"{self.name} rolls over!")
+
+my_dogs = list()
+
+my_dogs.append(Dog("coco", "labrador"))
+my_dogs.append(Dog("choco", "dalmatian"))
+
+for dog in my_dogs:
+  dog.bark()
