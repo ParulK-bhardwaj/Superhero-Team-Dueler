@@ -20,13 +20,13 @@ class Hero:
     #     else:
     #         print(f"{winner} defeats {opponent.name}!")
 #   Stretch challenge 2
-    def fight(self, opponent):
-        total_power = opponent.current_health + self.current_health
-        my_winning_chance = self.current_health / total_power * 100
-        if (random.randint(0, 100) < my_winning_chance):
-            print(f"{self.name} defeats {opponent.name}!")
-        else:
-            print(f"{opponent.name} defeats {self.name}!")
+    # def fight(self, opponent):
+    #     total_power = opponent.current_health + self.current_health
+    #     my_winning_chance = self.current_health / total_power * 100
+    #     if (random.randint(0, 100) < my_winning_chance):
+    #         print(f"{self.name} defeats {opponent.name}!")
+    #     else:
+    #         print(f"{opponent.name} defeats {self.name}!")
     
     def add_ability(self, ability):
         # We use the append method to add ability objects to our list.
@@ -40,7 +40,6 @@ class Hero:
         for ability in self.abilities:
         # add the damage of each attack to our running total
             total_damage += ability.attack()
-        # return the total damage
         return total_damage
     '''Add armor to self.armors
         Armor: Armor Object
@@ -70,38 +69,59 @@ class Hero:
             return False
         else:
             return True
+    
+    # 0) Check if at least one hero has abilities. If no hero has abilities, print "Draw"
+    # 1) else, start the fighting loop until a hero has won
+    # 2) the hero (self) and their opponent must attack each other and each must take damage from the other's attack
+    # 3) After each attack, check if either the hero (self) or the opponent is alive
+    # 4) if one of them has died, print "HeroName won!" replacing HeroName with the name of the hero, and end the fight loop
+    
+    def fight(self, opponent):
+        if len(self.abilities) == 0 and len(opponent.abilities) == 0:
+            print("Draw")
+        else:
+            # loop runs till both the hero and opponent is alive
+            while self.is_alive() and opponent.is_alive():
+                if len(self.abilities) >= 1:
+                    total_damage = self.attack()
+                    opponent.take_damage(total_damage)
+                if len(opponent.abilities) >= 1:
+                    total_damage = opponent.attack()
+                    self.take_damage(total_damage)
+                    if self.is_alive() and opponent.is_alive() == False:
+                        print(f"{self.name} won!")
+                    elif self.is_alive() == False and opponent.is_alive():
+                        print(f"{opponent.name} won!")
+                    elif self.is_alive() == False and opponent.is_alive() == False:
+                        print("Noone has won! Both the heroes have lost!")
 
 # If we put the code inside the if __name__ == "__main__": block. This block will only run if this script is called directly. 
 # The if/code block here prevents this block from being run when this script is imported by another script.
 # Later we want to import the Hero class but we won't want to run this test code.
+
+if __name__ == "__main__":
+    hero1 = Hero("Wonder Woman")
+    hero2 = Hero("Dumbledore")
+    ability1 = Ability("Super Speed", 30)
+    ability2 = Ability("Super Eyes", 30)
+    ability3 = Ability("Wizard Wand", 80)
+    ability4 = Ability("Wizard Beard", 20)
+    hero1.add_ability(ability1)
+    hero1.add_ability(ability2)
+    hero2.add_ability(ability3)
+    hero2.add_ability(ability4)
+    hero1.fight(hero2)
+
+
+
+
 # if __name__ == "__main__":
-#     ability = Ability("Great Debugging", 50)
-#     another_ability = Ability("Smarty Pants", 90)
+#     # If you run this file from the terminal
+#     # this block is executed.
+
 #     hero = Hero("Grace Hopper", 200)
-#     hero.add_ability(ability)
-#     hero.add_ability(another_ability)
-#     armor = Armor("Great Suit", 80)
-#     another_armor = Armor("Great blockers", 0)
-#     hero.add_armor(armor)
-#     hero.add_armor(another_armor)
-#     print(hero.attack())
-#     print(hero.defend())
-
-if __name__ == "__main__":
-    hero = Hero("Grace Hopper", 200)
-    shield = Armor("Shield", 70)
-    hero.add_armor(shield)
-    hero.attack()
-    hero.take_damage(500)
-    print(hero.current_health)
-
-if __name__ == "__main__":
-    # If you run this file from the terminal
-    # this block is executed.
-
-    hero = Hero("Grace Hopper", 200)
-    hero.take_damage(150)
-    print(hero.is_alive())
-    hero.take_damage(15000)
-    print(hero.is_alive())
+#     hero.take_damage(150)
+#     print(hero.is_alive())
+#     hero.take_damage(15000)
+#     print(hero.is_alive())
 
