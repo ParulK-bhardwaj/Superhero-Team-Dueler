@@ -1,6 +1,7 @@
 import random
 from ability import Ability
 from armor import Armor
+from weapon import Weapon
 
 class Hero:
     def __init__(self, name, starting_health=100):
@@ -95,24 +96,54 @@ class Hero:
                     elif self.is_alive() == False and opponent.is_alive() == False:
                         print("Noone has won! Both the heroes have lost!")
 
+    def add_weapon(self, weapon):
+        '''Add weapon to self.abilities'''
+        self.abilities.append(weapon)
+
 # If we put the code inside the if __name__ == "__main__": block. This block will only run if this script is called directly. 
 # The if/code block here prevents this block from being run when this script is imported by another script.
 # Later we want to import the Hero class but we won't want to run this test code.
 
 if __name__ == "__main__":
-    hero1 = Hero("Wonder Woman")
-    hero2 = Hero("Dumbledore")
-    ability1 = Ability("Super Speed", 30)
-    ability2 = Ability("Super Eyes", 30)
-    ability3 = Ability("Wizard Wand", 80)
-    ability4 = Ability("Wizard Beard", 20)
-    hero1.add_ability(ability1)
-    hero1.add_ability(ability2)
-    hero2.add_ability(ability3)
-    hero2.add_ability(ability4)
-    hero1.fight(hero2)
+    # If you run this file from the terminal
+    # this block is executed.
+    hero = Hero("Wonder Woman")
+    weapon = Weapon("Lasso of Truth", 90)
+    hero.add_weapon(weapon)
+    print(hero.attack())
 
+    # define an ability and a weapon
+    # both have the same max damage
+    eye_rays = Ability('Eye Rays', 50)
+    laser_blast = Weapon('Laser Blast', 50)
 
+    # Let's put these in an array together
+    # This list contains different types: Ability and Weapon
+    powers = [eye_rays, laser_blast]
+
+    # We know that all Abilities and Weapons share the same attribute
+    for power in powers:
+        print(power.max_damage)
+
+    # We know that all Abilities and Weapns implement the attack method
+    for power in powers:
+        print(power.attack())
+
+# Note! While both implement attack() a Weapon will always return 
+# a higher average damage!
+
+# if __name__ == "__main__":
+    # hero1 = Hero("Wonder Woman")
+    # hero2 = Hero("Dumbledore")
+    # ability1 = Ability("Super Speed", 30)
+    # ability2 = Ability("Super Eyes", 30)
+    # ability3 = Ability("Wizard Wand", 80)
+    # ability4 = Ability("Wizard Beard", 20)
+    # hero1.add_ability(ability1)
+    # hero1.add_ability(ability2)
+    # hero2.add_ability(ability3)
+    # hero2.add_ability(ability4)
+    # hero1.fight(hero2)
 
 
 # if __name__ == "__main__":
