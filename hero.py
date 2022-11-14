@@ -2,6 +2,7 @@ import random
 from ability import Ability
 from armor import Armor
 from weapon import Weapon
+from team import Team
 
 class Hero:
     def __init__(self, name, starting_health=100):
