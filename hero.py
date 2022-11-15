@@ -11,8 +11,19 @@ class Hero:
         self.name = name #String
         self.starting_health = starting_health #Integer
         self.current_health = starting_health #Integer
-    ''' Current Hero will take turns fighting the opponent hero passed in.
-  '''
+        self.deaths = 0
+        self.kills = 0
+
+    def add_kill(self, num_kills):
+        ''' Update self.kills by num_kills amount'''
+        self.kills += num_kills
+    
+    def add_death(self, num_deaths):
+        ''' Update deaths with num_deaths'''
+        self.deaths += num_deaths
+
+#     ''' Current Hero will take turns fighting the opponent hero passed in.
+#   '''
 #   Stretch challenge 1
     # def fight(self, opponent):
     #     list = [opponent.name, self.name]
@@ -43,16 +54,16 @@ class Hero:
         # add the damage of each attack to our running total
             total_damage += ability.attack()
         return total_damage
-    '''Add armor to self.armors
-        Armor: Armor Object
-    ''' 
+   
     def add_armor(self, armor):
+        # Add armor to self.armors
         self.armors.append(armor)
 
-    '''Calculate the total block amount from all armor blocks.
-     return: total_block:Int
-    '''
+    
     def defend(self):
+        '''Calculate the total block amount from all armor blocks.
+        return: total_block:Int
+        '''
         total_defence = 0
         for armor in self.armors:
             total_defence += armor.block()
@@ -90,12 +101,20 @@ class Hero:
                 if len(opponent.abilities) >= 1:
                     total_damage = opponent.attack()
                     self.take_damage(total_damage)
-                    if self.is_alive() and opponent.is_alive() == False:
-                        print(f"{self.name} won!")
-                    elif self.is_alive() == False and opponent.is_alive():
-                        print(f"{opponent.name} won!")
-                    elif self.is_alive() == False and opponent.is_alive() == False:
-                        print("Noone has won! Both the heroes have lost!")
+                if self.is_alive() and opponent.is_alive() == False:
+                    print(f"{self.name} won!")
+                    self.add_kill(1)
+                    opponent.add_death(1)
+                elif self.is_alive() == False and opponent.is_alive():
+                    print(f"{opponent.name} won!")
+                    self.add_death(1)
+                    opponent.add_kill(1)
+                elif self.is_alive() == False and opponent.is_alive() == False:
+                    print("Noone has won! Both the heroes have lost!")
+                    self.add_kill(1)
+                    opponent.add_death(1)
+                    self.add_death(1)
+                    opponent.add_kill(1)
 
     def add_weapon(self, weapon):
         '''Add weapon to self.abilities'''
