@@ -1,4 +1,7 @@
 import random
+from hero import Hero
+from ability import Ability
+# Team class that has the team of heroes
 
 class Team:
     def __init__(self, name):
@@ -24,8 +27,7 @@ class Team:
     def view_all_heroes(self):
         '''Prints out all heroes to the console.'''
         for hero in self.heroes:
-            print(hero.name)
-        # TODO: Loop over the list of heroes and print their names to the terminal one by one.
+            print(f"Hero: {hero.name}")
     
     def add_hero(self, hero):
         '''Add Hero object to self.heroes.'''
@@ -34,8 +36,10 @@ class Team:
     def stats(self):
         '''Print team statistics'''
         for hero in self.heroes:
-            kd = hero.kills / hero.deaths
-            print(f"{hero.name} Kill/Deaths:{kd}")
+            if hero.deaths == 0:
+                hero.deaths = 1
+            hero_kill_death = round(hero.kills / hero.deaths, 2)
+            print(f"{hero.name} Kill/Deaths:{hero_kill_death}")
     
     def revive_heroes(self, health=100):
         ''' Reset all heroes health to starting_health'''
@@ -54,12 +58,13 @@ class Team:
         for hero in other_team.heroes:
             living_opponents.append(hero)
 
-        while len(living_heroes) > 0 and len(living_opponents)> 0:
-            hero = random.choice(living_heroes)
-            opponent = random.choice(living_opponents)
-            hero.fight(opponent)
-            if hero.is_alive() == False:
-                living_heroes.remove(hero)
-            if opponent.is_alive() == False:
-                living_opponents.remove(opponent)
+        else:
+            while len(living_heroes) > 0 and len(living_opponents)> 0:
+                hero = random.choice(living_heroes)
+                opponent = random.choice(living_opponents)
+                hero.fight(opponent)
+                if hero.is_alive() == False:
+                    living_heroes.remove(hero)
+                if opponent.is_alive() == False:
+                    living_opponents.remove(opponent)
         

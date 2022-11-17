@@ -2,7 +2,6 @@ import random
 from ability import Ability
 from armor import Armor
 from weapon import Weapon
-from team import Team
 
 class Hero:
     def __init__(self, name, starting_health=100):
@@ -45,10 +44,10 @@ class Hero:
         # We use the append method to add ability objects to our list.
         self.abilities.append(ability)
     
-    '''Calculate the total damage from all ability attacks.
-      return: total_damage:Int
-  '''
     def attack(self):
+        '''Calculate the total damage from all ability attacks.
+        return: total_damage:Int
+        '''
         total_damage = 0
         for ability in self.abilities:
         # add the damage of each attack to our running total
@@ -83,7 +82,7 @@ class Hero:
         else:
             return True
     
-    # 0) Check if at least one hero has abilities. If no hero has abilities, print "Draw"
+    # 0) Checking if at least one hero has abilities. If no hero has abilities, print "Draw"
     # 1) else, start the fighting loop until a hero has won
     # 2) the hero (self) and their opponent must attack each other and each must take damage from the other's attack
     # 3) After each attack, check if either the hero (self) or the opponent is alive
@@ -110,7 +109,6 @@ class Hero:
                     self.add_death(1)
                     opponent.add_kill(1)
                 elif self.is_alive() == False and opponent.is_alive() == False:
-                    print("Noone has won! Both the heroes have lost!")
                     self.add_kill(1)
                     opponent.add_death(1)
                     self.add_death(1)
@@ -151,6 +149,8 @@ if __name__ == "__main__":
 
 # Note! While both implement attack() a Weapon will always return 
 # a higher average damage!
+
+# Other test code run performed during the tutorial:
 
 # if __name__ == "__main__":
     # hero1 = Hero("Wonder Woman")
